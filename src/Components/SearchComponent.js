@@ -1,36 +1,42 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchByName } from "../Store/Actions/apiFetch";
+import { fetchByName, fetchByCuisine} from "../Store/Actions/apiFetch";
 
 class SearchComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: ""
+      searchTermName: "",
+      searchTermCuisine:""
     };
   }
 
-  handleSearch = e => {
+  handleSearchName = e => {
     e.preventDefault();
-    console.log(this.state.searchTerm);
-    this.props.searchRestaurant(this.state.searchTerm);
+    this.props.searchRestaurantName(this.state.searchTermName, this.props.pageNo);
   };
-  handleFilter = e => {
+
+  searchCuisine=(e)=>{
     e.preventDefault();
-  };
+    console.log(this.state.searchTermCuisine);
+    this.props.searchRestaurantByCuisine(this.state.searchTermCuisine);
+  }
+
+
   render() {
     return (
       <div className="container" style={{ marginTop: "10px" }}>
         <form>
-          <div class="alert alert-dismissible alert-warning">
-            <h4 class="alert-heading">Search Restaurant</h4>
+          <div className="alert alert-dismissible alert-warning">
+            <h4 className="alert-heading">Search Restaurant</h4>
             <form>
               <div className="row">
                 <div className="col-md-8">
                   <input
+                    placeholder="Search By Name"
                     className="form-control"
                     onChange={e => {
-                      this.setState({ searchTerm: e.target.value });
+                      this.setState({ searchTermName: e.target.value });
                     }}
                     value={this.state.searchTerm}
                   />
@@ -38,16 +44,31 @@ class SearchComponent extends React.Component {
                 <button
                   className="btn-primary btn-lg btn"
                   style={{ marginLeft: "5px" }}
-                  onClick={this.handleSearch}
+                  onClick={this.handleSearchName}
                 >
                   Search
                 </button>
+              </div>
+
+              </form>
+              <form onSubmit={this.searchCuisine}>
+              <div className="row" style={{marginTop:"20px"}}>
+                <div className="col-md-8">
+                  <input
+                    placeholder="Search by Cuisine"
+                    className="form-control"
+                    onChange={e => {
+                      this.setState({ searchTermCuisine:e.target.value});
+                    }}
+                    value={this.state.searchTermCuisine}
+                  />
+                </div>
                 <button
-                  className="btn-success btn-lg btn"
+                  className="btn-danger btn-lg btn"
                   style={{ marginLeft: "5px" }}
-                  onClick={this.handleFilter}
+                  onChange={e=>this.setState({searchTermCuisine:e.target.value})}
                 >
-                  Filter
+                  Cuisine
                 </button>
               </div>
             </form>
@@ -61,13 +82,15 @@ class SearchComponent extends React.Component {
 const mapStateToProps = state => {
   return {
     restaurants: state.api.restaurants,
-    loading: state.api.loading
+    loading: state.api.loading,
+    pageNo: state.ui.pageValue
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    searchRestaurant: name => dispatch(fetchByName(name))
+    searchRestaurantName: (name, pageNo) => dispatch(fetchByName(name, pageNo)),
+    searchRestaurantByCuisine:(cuisine)=>dispatch(fetchByCuisine(cuisine))
   };
 };
 

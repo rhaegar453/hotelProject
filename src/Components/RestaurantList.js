@@ -1,20 +1,26 @@
 import React from "react";
-import Modal from './Modal';
-import {connect} from 'react-redux';
+import Modal from "./Modal";
+import { connect } from "react-redux";
 import { modalToggle } from "../Store/Actions/uiActions";
-import {fetchById} from '../Store/Actions/apiFetch';
+import { fetchById } from "../Store/Actions/apiFetch";
 
 class RestList extends React.Component {
   listItemClicked = () => {
-      this.props.modalToggle();
-      this.props.fetchById(this.props.id)
+    this.props.modalToggle();
+    console.log('Fetch Started');
+    this.props.fetchById(this.props.id);
+    console.log('Fetch COmpleted')
   };
-  constructor(props){
-      super(props);
+  constructor(props) {
+    super(props);
   }
-  render(){
+  render() {
     return (
-        <li className="list-group-item d-flex justify-content-between align-items-center" onClick={this.listItemClicked}>
+      <div>
+        <li
+          className="list-group-item d-flex justify-content-between align-items-center"
+          onClick={this.listItemClicked}
+        >
           {this.props.title}
           <span
             className="badge badge-primary badge-pill"
@@ -24,22 +30,26 @@ class RestList extends React.Component {
           </span>
           <Modal id={this.props.id} restaurantName="Shivaraj Bakale" />
         </li>
-      );
+      </div>
+    );
   }
+}
+
+const mapStateToProps = state => {
+  return {
+    restaurants: state.api.restaurants,
+    loading: state.api.loading
+  };
 };
 
-const mapStateToProps=(state)=>{
-    return{
-        restaurants:state.api.restaurants,
-        loading:state.api.loading
-    }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    modalToggle: () => dispatch(modalToggle()),
+    fetchById: id => dispatch(fetchById(id))
+  };
+};
 
-const mapDispatchToProps=(dispatch)=>{
-    return{
-        modalToggle:()=>dispatch(modalToggle()),
-        fetchById:(id)=>dispatch(fetchById(id))
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(RestList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RestList);

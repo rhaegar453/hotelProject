@@ -59,11 +59,12 @@ const fetchByNameSuccess=(data)=>{
     }
 }
 
-export const fetchByName=(name)=>{
+export const fetchByName=(name, pageNo)=>{
     return dispatch=>{
         dispatch(fetchByNameStarted());
         const headers={
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'id':pageNo
         }
         axios.post('http://localhost:3001/api/byname', {name:name}, {headers:headers})
         .then(data=>{
@@ -91,7 +92,7 @@ const fetchByCuisineFailed=(err)=>{
 const fetchByCuisineSuccess=(response)=>{
     return{
         type:actionsTypes.FETCH_BY_CUISINE_SUCCESS,
-        payload:response
+        payload:response.data
     }
 }
 export const fetchByCuisine=(cuisine)=>{
