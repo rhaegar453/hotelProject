@@ -20,25 +20,29 @@ class Pagination extends React.Component {
     this.props.fetchAll(this.props.pageValue);
   };
   render() {
-      const backwardComponet=this.props.pageValue==0?null:          <span onClick={this.PageDecrement}>
-      <i
-        className="fas fa-caret-square-left fa-3x"
-        style={{ marginLeft: "30px" }}
-      />
-    </span>;
+    const backwardComponet =
+      this.props.pageValue == 0 ? null : (
+        <span onClick={this.PageDecrement}>
+          <i
+            className="fas fa-caret-square-left fa-3x"
+            style={{ marginLeft: "30px" }}
+          />
+        </span>
+      );
+      const forwardComponent=this.props.restaurants==0?null:(<span onClick={this.PageIncrement}>
+        <i
+          className="fas fa-caret-square-right fa-3x"
+          style={{ marginLeft: "30px" }}
+        />
+      </span>);
     return (
       <div>
         <div
           className="d-flex justify-content-center"
           style={{ marginTop: "30px" }}
         >
-        {backwardComponet}
-          <span onClick={this.PageIncrement}>
-            <i
-              className="fas fa-caret-square-right fa-3x"
-              style={{ marginLeft: "30px" }}
-            />
-          </span>
+          {backwardComponet}
+          {forwardComponent}
         </div>
       </div>
     );
