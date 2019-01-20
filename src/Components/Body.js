@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 class Body extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            pageno:1
+        }
     }
     componentDidMount(){
-        this.props.fetchAll();
+        this.props.fetchAll(this.state.pageno);
     }
     render(){
         return(
@@ -33,7 +36,7 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        fetchAll:()=>dispatch(fetchAll())
+        fetchAll:(pageno)=>dispatch(fetchAll(pageno))
     }
 }
 

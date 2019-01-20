@@ -23,7 +23,7 @@ class modalC extends React.Component {
   render() {
     return (
       <Modal isOpen={this.props.modalState}>
-        <ModalHeader>{this.props.restaurantDetail.restaurant_name}<i class="fas fa-star" style={{color:"yellow"}}></i><span style={{marginLeft:"80px"}}>Rated as: {this.props.restaurantDetail.rating_text}</span></ModalHeader>
+        <ModalHeader>{this.props.restaurantDetail.restaurant_name}<i className="fas fa-star" style={{color:"yellow"}}></i><span style={{marginLeft:"80px"}}>Rated as: {this.props.restaurantDetail.rating_text}</span></ModalHeader>
         <ModalBody>
             <div className="row">
                 <div className="col-md-8">

@@ -6,3 +6,21 @@ export const modalToggle=()=>{
     }
 }
 
+
+export const paginateIncrement=()=>{
+    return{
+        type:actions.PAGE_VALUE_INCREMENT
+    }
+}
+
+export const paginateDecrement=()=>{
+    return{
+        type:actions.PAGE_VALUE_DECREMENT
+    }
+}
+
+
+
+
+
+

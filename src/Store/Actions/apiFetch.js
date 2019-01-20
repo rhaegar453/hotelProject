@@ -22,13 +22,14 @@ const fetchAllFailed=(err)=>{
     }
 }
 
-export const fetchAll=()=>{
+export const fetchAll=(id)=>{
     return dispatch=>{
         dispatch(fetchAllStarted());
         const headers={
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'id':id
         }
-        axios.get('http://localhost:3001/api/all', {headers:headers}).
+        axios.get('http://localhost:3001/api/all/', {headers:headers}).
         then(data=>{
             console.log(data);
             dispatch(fetchAllSuccess(data.data));
@@ -137,11 +138,9 @@ export const fetchById=(id)=>{
         }
         axios.post('http://localhost:3001/api/byid', {id:id}, {headers:headers})
         .then(data=>{
-            console.log(data.data.cuisines);
             dispatch(fetchByIdSuccess(data.data));
         })
         .catch(err=>{
-            console.log(err);
             dispatch(fetchByIdFailed(err));
         })
     }

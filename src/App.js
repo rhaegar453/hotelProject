@@ -1,14 +1,18 @@
 import React from 'react';
 import Navigation from './Components/Navigation';
 import Layout from './Components/Layout';
+import {connect} from 'react-redux';
+import {Spinner } from 'reactstrap';
 
 
-export default class App extends React.Component{
+
+class App extends React.Component{
     constructor(props){
         super(props);
     }
 
     render(){
+        let spinner=this.props.loading;
         return(
             <div>
                 <Navigation/>
@@ -17,3 +21,9 @@ export default class App extends React.Component{
         )
     }
 }
+const mapStateToProps=(state)=>{
+    return{
+        loading:state.api.loading
+    }
+}
+export default connect(mapStateToProps)(App)
