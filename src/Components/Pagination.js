@@ -29,7 +29,7 @@ class Pagination extends React.Component {
           />
         </span>
       );
-      const forwardComponent=this.props.restaurants==0|| this.props.restaurants.length<10?null:(<span onClick={this.PageIncrement}>
+      const forwardComponent=this.props.restaurants==0?null:(<span onClick={this.PageIncrement}>
         <i
           className="fas fa-caret-square-right fa-3x"
           style={{ marginLeft: "30px" }}
